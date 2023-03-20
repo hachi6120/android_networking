@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +41,10 @@ public class TuanFragment extends Fragment {
         truyenList.add(new Truyen(3,"7 viên ngọc rồng","Truyện Hay","Tác Giả c",2000,"",a));
         truyenList.add(new Truyen(3,"7 viên ngọc rồng","Truyện Hay","Tác Giả c",2000,"",a));
 
-        AdapterRecyclerViewTruyen adapterRecyclerViewTruyen = new AdapterRecyclerViewTruyen();
+        AdapterRecyclerViewTruyen adapterRecyclerViewTruyen = new AdapterRecyclerViewTruyen(getActivity());
         adapterRecyclerViewTruyen.setData(truyenList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapterRecyclerViewTruyen);
 
         return view;

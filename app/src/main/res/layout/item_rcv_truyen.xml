@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:layout_margin="5dp">
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_item_truyen"
+    android:layout_marginVertical="2dp"
+    android:id="@+id/item_rcv_ln_truyen">
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="150dp"
+        android:layout_margin="2dp"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
         android:scaleType="centerCrop"
         android:src="@drawable/s"
         android:id="@+id/item_rcv_img"/>
@@ -15,20 +18,23 @@
         android:orientation="vertical"
         android:layout_marginStart="5dp">
         <TextView
+            android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Naruto"
             android:id="@+id/item_rcv_tv_tentruyen"
             android:textStyle="bold"
-            android:textSize="18dp"/>
+            android:textSize="20dp"/>
         <TextView
+            android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tác giả: Kishimoto"
             android:id="@+id/item_rcv_tv_tacgia"
             android:textStyle="italic"
-            android:textSize="14dp"/>
+            android:textSize="12dp"/>
         <TextView
+            android:textColor="#ffffff"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,11 +42,12 @@
             android:textStyle="bold"
             android:textSize="14dp"/>
         <TextView
+            android:textColor="#ffffff"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="5dp"
             android:id="@+id/item_rcv_tv_noidung"
-            android:textSize="12dp"
+            android:textSize="10dp"
             android:textStyle="italic"
             android:text="Hạnh phúc từ trước đến nay luôn là cái mà con người ta luôn hướng tới.Nhưng khái niệm về hạnh phúc đối với mỗi người là hoàn toàn khác nhau.Có người cho rằng hạnh phúc là khi mình giàu có no đủ.Nhưng đối
 
