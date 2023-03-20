@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/custom_item_gridview"
+    >
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/c"
+        android:id="@+id/item_gv_img"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="6dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:text="Tên Truyện"
+        android:textStyle="bold"
+        android:id="@+id/item_gv_tv_tenTruyen"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:text="Tên Truyện"
+        android:textStyle="italic"
+        android:id="@+id/item_gv_tv_tacgia"
+        android:layout_gravity="center"/>
+
+</LinearLayout>
