@@ -2,23 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/custom_item_truyen"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginVertical="2dp"
     android:id="@+id/item_rcv_ln_truyen">
-    <ImageView
-        android:layout_margin="2dp"
-        android:layout_width="80dp"
-        android:layout_height="120dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/s"
-        android:id="@+id/item_rcv_img"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp">
+        <ImageView
+            android:layout_margin="2dp"
+            android:layout_width="100dp"
+            android:layout_height="140dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/s"
+            android:id="@+id/item_rcv_img"/>
+    </androidx.cardview.widget.CardView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginStart="5dp">
         <TextView
-            android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Naruto"
@@ -26,7 +30,6 @@
             android:textStyle="bold"
             android:textSize="20dp"/>
         <TextView
-            android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tác giả: Kishimoto"
@@ -34,7 +37,6 @@
             android:textStyle="italic"
             android:textSize="12dp"/>
         <TextView
-            android:textColor="#ffffff"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +44,6 @@
             android:textStyle="bold"
             android:textSize="14dp"/>
         <TextView
-            android:textColor="#ffffff"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="5dp"

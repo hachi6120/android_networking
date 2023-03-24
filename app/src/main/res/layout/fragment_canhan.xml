@@ -70,28 +70,35 @@
         android:orientation="vertical"
         android:layout_margin="20dp">
         <Button
+            android:id="@+id/fcanhan_btn_truyenyt"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/addchart_24"
             android:textAlignment="textStart"
             android:text="Truyện Yêu Thích"
-            android:background="@drawable/custombuttom"/>
+            android:background="@drawable/custombuttom"
+            app:backgroundTint="@null"
+            />
         <Button
+            android:id="@+id/fcanhan_btn_doimk"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/lock_reset_24"
             android:textAlignment="textStart"
             android:text="Đổi Mật Khẩu"
-            android:background="@drawable/custombuttom"/>
+            android:background="@drawable/custombuttom"
+            app:backgroundTint="@null"/>
         <Button
+            android:id="@+id/fcanhan_btn_dx"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/logout_24"
             android:textAlignment="textStart"
             android:text="Đăng Xuất"
-            android:background="@drawable/custombuttom"/>
+            android:background="@drawable/custombuttom"
+            app:backgroundTint="@null"/>
     </LinearLayout>
 </LinearLayout>

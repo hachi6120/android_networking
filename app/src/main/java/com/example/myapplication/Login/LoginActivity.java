@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -29,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().setTitle("Login");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.color_app)));
+
 
         edtUserName = findViewById(R.id.login_edt_username);
         edtPass = findViewById(R.id.login_edt_pass);

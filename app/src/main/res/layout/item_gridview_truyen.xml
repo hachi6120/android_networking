@@ -2,18 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/custom_item_gridview"
-    >
+    android:background="@drawable/custom_item_gridview">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="150dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        android:layout_marginTop="6dp"
         android:layout_gravity="center"
-        android:src="@drawable/c"
-        android:id="@+id/item_gv_img"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="6dp"/>
+        android:outlineSpotShadowColor="#000000"
+        android:outlineAmbientShadowColor="@color/black"
+        >
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:src="@drawable/c"
+            android:id="@+id/item_gv_img"
+            android:scaleType="centerCrop"
+            />
+    </androidx.cardview.widget.CardView>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -8,17 +8,16 @@ import android.view.WindowManager;
 
 import com.example.myapplication.R;
 
-public class RegisterActivity extends AppCompatActivity {
+public class PasswordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_password);
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Đăng Ký");
+        getSupportActionBar().setTitle("Đổi mật khẩu");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.color_app)));
-
     }
 }

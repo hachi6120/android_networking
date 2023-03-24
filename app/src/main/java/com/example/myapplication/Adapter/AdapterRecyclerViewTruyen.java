@@ -52,15 +52,6 @@ public class AdapterRecyclerViewTruyen extends RecyclerView.Adapter<AdapterRecyc
         holder.tvTacGia.setText("Tác Gải: "+obj.getTenTG());
         holder.tvNoiDung.setText(obj.getMoTa());
 
-        if (temp == 1){
-            holder.ln.setBackgroundResource(R.drawable.custom_item_truyen);
-        } else if (temp == 2) {
-            holder.ln.setBackgroundResource(R.drawable.custom_item_truyen_b);
-        }else if (temp == 3) {
-            holder.ln.setBackgroundResource(R.drawable.custom_item_truyen_a);
-            temp = 0;
-        }
-
         holder.ln.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

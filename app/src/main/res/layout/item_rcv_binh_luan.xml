@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_marginHorizontal="5dp">
+    <androidx.cardview.widget.CardView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="25dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/person_24"/>
+    </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_item_cmt"
+        android:padding="5dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="Nguyễn Văn A"
+                android:id="@+id/item_rcv_bl_tv_ten"
+                android:textStyle="bold"
+                android:layout_alignParentLeft="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:text="24/03/2023"
+                android:id="@+id/item_rcv_bl_tv_ngay"
+                android:textStyle="italic"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="7dp"
+            android:textSize="14dp"
+            android:text="wrap wrap content wrap content wrap content wrap content wrap contentwrap contentwrap content wrap content wrap contentwrap content wrap content wrap content wrap content wrap content "
+            android:id="@+id/item_rcv_bl_tv_cmt"/>
+    </LinearLayout>
+</LinearLayout>
