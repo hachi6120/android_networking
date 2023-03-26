@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.Model.Truyen;
 import com.example.myapplication.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.List;
@@ -66,6 +67,7 @@ public class AdapterGridView extends BaseAdapter {
         Truyen obj = objects.get(i);
         holder.tvTenTruyen.setText(obj.getTen());
         holder.tvTacGia.setText("Tác Giả: "+obj.getTenTG());
+        Picasso.get().load(obj.getLinkAnhBia()).into(holder.img);
         return view;
     }
 

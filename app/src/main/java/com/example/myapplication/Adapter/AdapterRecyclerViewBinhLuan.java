@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Model.BinhLuan;
+import com.example.myapplication.R;
 
 import java.util.List;
 

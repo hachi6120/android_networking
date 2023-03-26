@@ -2,6 +2,7 @@ package com.example.myapplication.Adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.Model.Truyen;
 import com.example.myapplication.R;
 import com.example.myapplication.ThongTinTruyenActivity;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -52,9 +55,19 @@ public class AdapterRecyclerViewTruyen extends RecyclerView.Adapter<AdapterRecyc
         holder.tvTacGia.setText("Tác Gải: "+obj.getTenTG());
         holder.tvNoiDung.setText(obj.getMoTa());
 
+        Picasso.get().load(obj.getLinkAnhBia()).into(holder.img);
+
         holder.ln.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // chuyển về string
+                Gson gson = new Gson();
+                String sTruyen = gson.toJson(obj);
+                //lưu dữ liệu
+                SharedPreferences pref = activity.getSharedPreferences("INFOR_TRUYEN", activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("TRUYEN", sTruyen);
+                editor.commit();
                 activity.startActivity(new Intent(activity, ThongTinTruyenActivity.class));
             }
         });
