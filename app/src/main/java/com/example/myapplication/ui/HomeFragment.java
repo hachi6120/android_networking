@@ -22,6 +22,7 @@ import com.example.myapplication.ExpandableHeightGridView;
 import com.example.myapplication.Model.Photo;
 import com.example.myapplication.Model.Truyen;
 import com.example.myapplication.R;
+import com.example.myapplication.Ritrofit.TruyenRitrofit;
 import com.example.myapplication.ThongTinTruyenActivity;
 import com.example.myapplication.databinding.FragmentHomeBinding;
 import com.google.gson.Gson;
@@ -57,6 +58,8 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
 
+    String url = "https://mli72h-8080.csb.app/";
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -81,39 +84,12 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        String a[] = new String[]{"https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_5.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_6.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_7.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_8.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_9.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_10.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_11.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_12.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_13.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_14.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_15.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_16.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_17.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_18.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_19.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_20.jpg",
-                "https://doctruyentranh.net.vn/ckfinder/userfiles/images/doc_truyen_tranh_naruto_chap_13_21.jpg",};
-        //
-        List<Truyen> truyenList = new ArrayList<>();
-        truyenList.add(new Truyen(1,"Naruto","Truyện Hay","kishimoto",2008,"https://animehunch.com/wp-content/uploads/2021/09/Untitled-design-2-768x431.jpg",a));
-        truyenList.add(new Truyen(2,"Akame ga kill","Truyện Hay","A",2002,"https://storage.googleapis.com/happy-quiz-vn.appspot.com/zq/quizzes/a2e05a00-a5f9-11e5-b6b7-050901070303-raw.jpeg",a));
-        truyenList.add(new Truyen(3,"Jujutsu kaisen","Truyện Hay","Tác Giả c",2000,"https://nguvan.vn/wp-content/uploads/2021/03/Xtrafondos-1.jpg",a));
-        truyenList.add(new Truyen(4,"Boku no hero","Truyện Hay","Tác Giả c",2000,"https://sieuimba.com/wp-content/uploads/2016/07/b5-1.jpg",a));
-        truyenList.add(new Truyen(5,"Kimetsu no yaiba","Truyện Hay","Tác Giả c",2000,"https://gamek.mediacdn.vn/133514250583805952/2020/4/26/photo-2-1587918273424118655688.jpg",a));
-        truyenList.add(new Truyen(6,"Nanatsu no taizai","Truyện Hay","Tác Giả c",2000,"https://piunikaweb.com/wp-content/uploads/2020/03/nanatsu-no-taizai-min.jpg",a));
-
         gridView = (ExpandableHeightGridView) root.findViewById(R.id.home_gridview);
-        AdapterGridView adapterGridView = new AdapterGridView(getActivity(),truyenList);
-        gridView.setAdapter(adapterGridView);
-        gridView.setExpanded(true);
 
+        TruyenRitrofit truyenRitrofit = new TruyenRitrofit(getContext(),url,gridView,null,1);
+        truyenRitrofit.TruyenGetRetrofit();
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // chuyển về string
@@ -128,7 +104,7 @@ public class HomeFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ThongTinTruyenActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
         return root;
     }
 

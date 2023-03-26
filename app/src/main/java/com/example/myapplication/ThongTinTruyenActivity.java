@@ -66,6 +66,7 @@ public class ThongTinTruyenActivity extends AppCompatActivity {
         tvTen.setText(obj.getTen());
         tvTacGia.setText(obj.getTenTG());
         tvNamXb.setText(""+obj.getNamSX());
+        tvNoiDung.setText(obj.getMoTa());
         Picasso.get().load(obj.getLinkAnhBia()).into(imgAnhBia);
         Picasso.get().load(obj.getLinkAnhBia()).into(imgBanner);
 

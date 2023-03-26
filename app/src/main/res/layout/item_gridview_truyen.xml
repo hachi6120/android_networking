@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/custom_item_gridview">
+    android:background="@drawable/custom_item_gridview"
+    android:id="@+id/item_gv_ln">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"

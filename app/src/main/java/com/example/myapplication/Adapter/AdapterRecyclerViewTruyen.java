@@ -1,6 +1,7 @@
 package com.example.myapplication.Adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -26,10 +27,10 @@ public class AdapterRecyclerViewTruyen extends RecyclerView.Adapter<AdapterRecyc
 
     private List<Truyen> truyenList;
 
-    Activity activity;
+    Context activity;
     private int temp = 0;
 
-    public AdapterRecyclerViewTruyen(Activity activity) {
+    public AdapterRecyclerViewTruyen(Context activity) {
         this.activity = activity;
     }
 

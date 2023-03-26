@@ -5,16 +5,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.Model.Truyen;
 import com.example.myapplication.R;
+import com.example.myapplication.ThongTinTruyenActivity;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -26,7 +30,6 @@ public class AdapterGridView extends BaseAdapter {
     private List<Truyen> objects;
     private LayoutInflater inflater;
 
-    int a = 0;
 
     public AdapterGridView(Context context, List<Truyen> objects) {
         this.context = context;
@@ -52,13 +55,14 @@ public class AdapterGridView extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder holder = new ViewHolder();
-        a++;
         if (view == null) {
             view = inflater.inflate(R.layout.item_gridview_truyen, null);
 
             holder.tvTenTruyen = view.findViewById(R.id.item_gv_tv_tenTruyen);
             holder.tvTacGia = view.findViewById(R.id.item_gv_tv_tacgia);
             holder.img = view.findViewById(R.id.item_gv_img);
+
+            holder.ln = view.findViewById(R.id.item_gv_ln);
 
             view.setTag(holder);
         } else {
@@ -68,12 +72,31 @@ public class AdapterGridView extends BaseAdapter {
         holder.tvTenTruyen.setText(obj.getTen());
         holder.tvTacGia.setText("Tác Giả: "+obj.getTenTG());
         Picasso.get().load(obj.getLinkAnhBia()).into(holder.img);
+
+        holder.ln.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               Gson gson = new Gson();
+                String sTruyen = gson.toJson(obj);
+                //lưu dữ liệu
+                SharedPreferences pref = context.getSharedPreferences("INFOR_TRUYEN", context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("TRUYEN", sTruyen);
+                editor.commit();
+
+                Intent intent = new Intent(context, ThongTinTruyenActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
         return view;
     }
 
     public class ViewHolder {
         public TextView tvTenTruyen,tvTacGia;
         public ImageView img;
+
+        public LinearLayout ln;
     }
 }
 

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.example.myapplication.Adapter.AdapterRecyclerViewTrangTruyen;
@@ -36,9 +37,9 @@ public class TruyenActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.color_app)));
 
         recyclerView = findViewById(R.id.truyen_activity_rcv);
+        Log.e("TAG", "onCreate: "+obj.getLinkAnhTruyen()[0]);
 
         AdapterRecyclerViewTrangTruyen adapterRecyclerViewTrangTruyen = new AdapterRecyclerViewTrangTruyen();
-
         //set data cho adapter
         adapterRecyclerViewTrangTruyen.setData(obj.getLinkAnhTruyen());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);

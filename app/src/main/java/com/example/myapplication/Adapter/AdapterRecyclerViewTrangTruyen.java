@@ -37,7 +37,9 @@ public class AdapterRecyclerViewTrangTruyen extends RecyclerView.Adapter<Adapter
         if (truyenList==null){
             return;
         }
-        Picasso.get().load(truyenList[position]).into(holder.img);
+        if (!truyenList[position].isEmpty()){
+            Picasso.get().load(truyenList[position]).into(holder.img);
+        }
     }
 
     @Override
