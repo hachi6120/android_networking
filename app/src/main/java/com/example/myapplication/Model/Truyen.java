@@ -1,6 +1,8 @@
 package com.example.myapplication.Model;
 
 
+import java.util.Arrays;
+
 public class Truyen {
     private int id;
     private String ten;
@@ -77,5 +79,18 @@ public class Truyen {
 
     public void setLinkAnhTruyen(String[] linkAnhTruyen) {
         this.linkAnhTruyen = linkAnhTruyen;
+    }
+
+    @Override
+    public String toString() {
+        return "Truyen{" +
+                "id=" + id +
+                ", ten='" + ten + '\'' +
+                ", moTa='" + moTa + '\'' +
+                ", tenTG='" + tenTG + '\'' +
+                ", namSX=" + namSX +
+                ", linkAnhBia='" + linkAnhBia + '\'' +
+                ", linkAnhTruyen=" + Arrays.toString(linkAnhTruyen) +
+                '}';
     }
 }

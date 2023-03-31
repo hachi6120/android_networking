@@ -1,8 +1,11 @@
 package com.example.myapplication.Ritrofit;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.GridView;
+import android.view.View;
+import android.widget.AdapterView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,11 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.Adapter.AdapterGridView;
 import com.example.myapplication.Adapter.AdapterRecyclerViewTruyen;
 import com.example.myapplication.ExpandableHeightGridView;
-import com.example.myapplication.Interface.TruyenInterface;
+import com.example.myapplication.Interface.ClassInterface;
 import com.example.myapplication.Model.Truyen;
+import com.example.myapplication.Model.User;
+import com.example.myapplication.ThongTinTruyenActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,61 +32,155 @@ public class TruyenRitrofit {
 
     Context context;
     String url;
-    ExpandableHeightGridView gridView;
-
-    RecyclerView recyclerView;
-
-    int check;
 
 
-    public TruyenRitrofit(Context context, String url, ExpandableHeightGridView gridView, RecyclerView recyclerView, int check) {
+    public TruyenRitrofit(Context context, String url) {
         this.context = context;
         this.url = url;
-        this.gridView = gridView;
-        this.recyclerView = recyclerView;
-        this.check = check;
     }
 
-    public  void TruyenGetRetrofit(){
+    public void TruyenGetRetrofit(ExpandableHeightGridView gridView) {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         //sử dụng interface
-        TruyenInterface userInterface = retrofit.create(TruyenInterface.class);
+        ClassInterface userInterface = retrofit.create(ClassInterface.class);
         Call<List<Truyen>> objCall = userInterface.lay_danh_sach();
 
         //gọi GET
         objCall.enqueue(new Callback<List<Truyen>>() {
             @Override
             public void onResponse(Call<List<Truyen>> call, retrofit2.Response<List<Truyen>> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<Truyen> list = response.body();
 
-                    if (check == 1){
-                        AdapterGridView adapterGridView = new AdapterGridView(context,list);
-                        gridView.setAdapter(adapterGridView);
-                        gridView.setExpanded(true);
-                    } else if (check == 2) {
-                        AdapterRecyclerViewTruyen adapterRecyclerViewTruyen = new AdapterRecyclerViewTruyen(context);
-                        adapterRecyclerViewTruyen.setData(list);
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context,RecyclerView.VERTICAL,false);
-                        recyclerView.setLayoutManager(linearLayoutManager);
-                        recyclerView.setAdapter(adapterRecyclerViewTruyen);
-                    }
+                    AdapterGridView adapterGridView = new AdapterGridView(context, list);
+                    gridView.setAdapter(adapterGridView);
+                    gridView.setExpanded(true);
+                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            // chuyển về string
+                            Gson gson = new Gson();
+                            String sTruyen = gson.toJson(list.get(i));
+                            //lưu dữ liệu
+                            SharedPreferences pref = context.getSharedPreferences("INFOR_TRUYEN", context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putString("TRUYEN", sTruyen);
+                            editor.commit();
 
+                            Intent intent = new Intent(context, ThongTinTruyenActivity.class);
+                            context.startActivity(intent);
+                        }
+                    });
 
-                    /*Log.d("TAG", "onResponse: size: "+list.size());*/
                     // tự sử lý list
-                }else {
-                    Log.d("TAG", "onResponse: Lỗi: "+response.errorBody());
+                } else {
+                    Log.d("TAG", "onResponse: Lỗi: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Truyen>> call, Throwable t) {
-                Log.e("TAG E", "onFailure: "+t.getMessage() );
+                Log.e("TAG E", "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    public void TruyenGetRetrofitRecyclerView(RecyclerView recyclerView) {
+        Gson gson = new GsonBuilder().setLenient().create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        //sử dụng interface
+        ClassInterface userInterface = retrofit.create(ClassInterface.class);
+        Call<List<Truyen>> objCall = userInterface.lay_danh_sach();
+
+        //gọi GET
+        objCall.enqueue(new Callback<List<Truyen>>() {
+            @Override
+            public void onResponse(Call<List<Truyen>> call, retrofit2.Response<List<Truyen>> response) {
+                if (response.isSuccessful()) {
+                    List<Truyen> list = response.body();
+
+                    AdapterRecyclerViewTruyen adapterRecyclerViewTruyen = new AdapterRecyclerViewTruyen(context);
+                    adapterRecyclerViewTruyen.setData(list);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                    recyclerView.setAdapter(adapterRecyclerViewTruyen);
+
+                    // tự sử lý list
+                } else {
+                    Log.d("TAG", "onResponse: Lỗi: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Truyen>> call, Throwable t) {
+                Log.e("TAG E", "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    public void TruyenYeuThich(User user, ExpandableHeightGridView gridView) {
+        Gson gson = new GsonBuilder().setLenient().create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        //sử dụng interface
+        ClassInterface userInterface = retrofit.create(ClassInterface.class);
+        Call<List<Truyen>> objCall = userInterface.lay_danh_sach();
+
+        //gọi GET
+        objCall.enqueue(new Callback<List<Truyen>>() {
+            @Override
+            public void onResponse(Call<List<Truyen>> call, retrofit2.Response<List<Truyen>> response) {
+                if (response.isSuccessful()) {
+                    List<Truyen> list = response.body();
+
+                    List<Truyen> newList = new ArrayList<>();
+
+                    for (int i = 0; i < user.getTruyenyeuthich().length; i++) {
+                        for (int j = 0; j < list.size(); j++) {
+                            if (Integer.parseInt(user.getTruyenyeuthich()[i])==list.get(j).getId()){
+                                newList.add(list.get(j));
+                            }
+                        }
+                    }
+
+                    AdapterGridView adapterGridView = new AdapterGridView(context, newList);
+                    gridView.setAdapter(adapterGridView);
+                    gridView.setExpanded(true);
+                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            // chuyển về string
+                            Gson gson = new Gson();
+                            String sTruyen = gson.toJson(list.get(i));
+                            //lưu dữ liệu
+                            SharedPreferences pref = context.getSharedPreferences("INFOR_TRUYEN", context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putString("TRUYEN", sTruyen);
+                            editor.commit();
+
+                            Intent intent = new Intent(context, ThongTinTruyenActivity.class);
+                            context.startActivity(intent);
+                        }
+                    });
+
+                    // tự sử lý list
+                } else {
+                    Log.d("TAG", "onResponse: Lỗi: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Truyen>> call, Throwable t) {
+                Log.e("TAG E", "onFailure: " + t.getMessage());
             }
         });
     }

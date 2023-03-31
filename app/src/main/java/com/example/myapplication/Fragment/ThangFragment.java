@@ -32,8 +32,8 @@ public class ThangFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.topthang_rcv);
 
-        TruyenRitrofit truyenRitrofit = new TruyenRitrofit(getContext(),url,null,recyclerView,2);
-        truyenRitrofit.TruyenGetRetrofit();
+        TruyenRitrofit truyenRitrofit = new TruyenRitrofit(getContext(),url);
+        truyenRitrofit.TruyenGetRetrofitRecyclerView(recyclerView);
 
         return view;
     }

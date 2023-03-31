@@ -1,34 +1,34 @@
 package com.example.myapplication.Model;
 
 public class BinhLuan {
-    private int idUser;
-    private int idTruyen;
+    private String idUser;
+    private String idTruyen;
     private String cmt;
     private String ngay;
 
     public BinhLuan() {
     }
 
-    public BinhLuan(int idUser, int idTruyen, String cmt, String ngay) {
+    public BinhLuan(String idUser, String idTruyen, String cmt, String ngay) {
         this.idUser = idUser;
         this.idTruyen = idTruyen;
         this.cmt = cmt;
         this.ngay = ngay;
     }
 
-    public int getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 
-    public int getIdTruyen() {
+    public String getIdTruyen() {
         return idTruyen;
     }
 
-    public void setIdTruyen(int idTruyen) {
+    public void setIdTruyen(String idTruyen) {
         this.idTruyen = idTruyen;
     }
 

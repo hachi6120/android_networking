@@ -62,8 +62,6 @@ public class AdapterGridView extends BaseAdapter {
             holder.tvTacGia = view.findViewById(R.id.item_gv_tv_tacgia);
             holder.img = view.findViewById(R.id.item_gv_img);
 
-            holder.ln = view.findViewById(R.id.item_gv_ln);
-
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
@@ -73,30 +71,12 @@ public class AdapterGridView extends BaseAdapter {
         holder.tvTacGia.setText("Tác Giả: "+obj.getTenTG());
         Picasso.get().load(obj.getLinkAnhBia()).into(holder.img);
 
-        holder.ln.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               Gson gson = new Gson();
-                String sTruyen = gson.toJson(obj);
-                //lưu dữ liệu
-                SharedPreferences pref = context.getSharedPreferences("INFOR_TRUYEN", context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("TRUYEN", sTruyen);
-                editor.commit();
-
-                Intent intent = new Intent(context, ThongTinTruyenActivity.class);
-                context.startActivity(intent);
-            }
-        });
-
         return view;
     }
 
     public class ViewHolder {
         public TextView tvTenTruyen,tvTacGia;
         public ImageView img;
-
-        public LinearLayout ln;
     }
 }
 

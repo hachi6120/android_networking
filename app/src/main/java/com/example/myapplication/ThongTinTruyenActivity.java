@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,24 +14,39 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.Adapter.AdapterRecyclerViewBinhLuan;
 import com.example.myapplication.Model.BinhLuan;
 import com.example.myapplication.Model.Truyen;
+import com.example.myapplication.Model.User;
+import com.example.myapplication.Ritrofit.BinhLuanRitrofit;
+import com.example.myapplication.Ritrofit.UserRitrofit;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class ThongTinTruyenActivity extends AppCompatActivity {
 
     TextView tvTen,tvTacGia,tvNamXb,tvNoiDung;
     ImageView imgAnhBia,imgBanner;
-    Button btnDoc;
+    Button btnDoc,btnLuu;
     RecyclerView rcvBinhLuan;
+
+    EditText cmt;
+
+    String url = "https://mli72h-8080.csb.app/";
+
+    boolean check = false;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -52,6 +68,9 @@ public class ThongTinTruyenActivity extends AppCompatActivity {
         imgBanner = findViewById(R.id.ttt_img_banner);
 
         btnDoc = findViewById(R.id.ttt_btn_doc);
+        btnLuu = findViewById(R.id.ttt_btn_luu);
+
+        cmt = findViewById(R.id.ttt_edt_bl);
 
         rcvBinhLuan = findViewById(R.id.ttt_rcv_binhluan);
 
@@ -61,6 +80,20 @@ public class ThongTinTruyenActivity extends AppCompatActivity {
 
         Gson gson = new Gson();
         Truyen obj = gson.fromJson(sTruyen,Truyen.class);
+
+        SharedPreferences prefUser = getSharedPreferences("INFOR_USER", MODE_PRIVATE);
+        String sUser = prefUser.getString("USER","");
+
+        Gson gUser = new Gson();
+        User objUser = gUser.fromJson(sUser,User.class);
+
+        for (int i = 0; i < objUser.getTruyenyeuthich().length; i++) {
+            if (Integer.parseInt(objUser.getTruyenyeuthich()[i]) == obj.getId()){
+                btnLuu.setText("Đã Lưu");
+                btnLuu.setBackground(ContextCompat.getDrawable(this, R.drawable.custombuttomcheck));
+                check = true;
+            }
+        }
 
         // Tải dữ liệu lên giao diện
         tvTen.setText(obj.getTen());
@@ -77,19 +110,49 @@ public class ThongTinTruyenActivity extends AppCompatActivity {
             }
         });
 
-        List<BinhLuan> list = new ArrayList<>();
-        list.add(new BinhLuan(1,4,"Truyện hay, hấp dẫn","26/02/2022"));
-        list.add(new BinhLuan(2,15,"Truyện hay, hấp dẫn","05/02/2022"));
-        list.add(new BinhLuan(3,41,"Truyện hay, hấp dẫn","22/02/2022"));
-        list.add(new BinhLuan(4,15,"Truyện hay, hấp dẫn","05/02/2022"));
-        list.add(new BinhLuan(5,71,"Truyện hay, hấp dẫn","14/02/2022"));
-        list.add(new BinhLuan(6,15,"Truyện hay, hấp dẫn","15/12/2022"));
+        btnLuu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String[] arr = objUser.getTruyenyeuthich();
+                List<String> list = new ArrayList<>(Arrays.asList(arr));
+                if (check == true){
+                    list.remove(String.valueOf(obj.getId()));
+                    btnLuu.setText("Lưu");
+                    btnLuu.setBackground(ContextCompat.getDrawable(ThongTinTruyenActivity.this, R.drawable.custombuttom));
+                }else {
+                    list.add(String.valueOf(obj.getId()));
+                    btnLuu.setText("Đã Lưu");
+                    btnLuu.setBackground(ContextCompat.getDrawable(ThongTinTruyenActivity.this, R.drawable.custombuttomcheck));
+                }
+                objUser.setTruyenyeuthich(list.toArray(new String[0]));
+                UserRitrofit userRitrofit = new UserRitrofit(ThongTinTruyenActivity.this,url);
+                userRitrofit.userUpdate(objUser);
+            }
+        });
 
-        AdapterRecyclerViewBinhLuan adapterRecyclerViewBinhLuan = new AdapterRecyclerViewBinhLuan();
-        adapterRecyclerViewBinhLuan.setData(list);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
-        rcvBinhLuan.setLayoutManager(linearLayoutManager);
-        rcvBinhLuan.setAdapter(adapterRecyclerViewBinhLuan);
+        //btn cmt
+        findViewById(R.id.ttt_btn_bl).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (cmt.getText().toString().isEmpty()){
+                    Toast.makeText(ThongTinTruyenActivity.this, "Bạn chưa nhập nội dung", Toast.LENGTH_SHORT).show();
+                }else {
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm - DD/MM/yyyy");
+                    String ngay = sdf.format(new Date());
 
+                    BinhLuan binhLuan = new BinhLuan(String.valueOf(objUser.getId()),
+                            String.valueOf(obj.getId()),
+                            cmt.getText().toString(),ngay);
+
+                    BinhLuanRitrofit binhLuanRitrofit = new BinhLuanRitrofit(ThongTinTruyenActivity.this,url);
+                    binhLuanRitrofit.BLPortRetrofit(binhLuan,rcvBinhLuan,obj.getId());
+                    cmt.setText("");
+                }
+            }
+        });
+
+        // load cmt
+        BinhLuanRitrofit binhLuanRitrofit = new BinhLuanRitrofit(this,url);
+        binhLuanRitrofit.BinhLuanGetRetrofit(rcvBinhLuan,obj.getId());
     }
 }

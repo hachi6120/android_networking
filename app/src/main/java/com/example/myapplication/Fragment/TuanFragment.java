@@ -33,8 +33,8 @@ public class TuanFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.toptuan_rcv);
 
-        TruyenRitrofit truyenRitrofit = new TruyenRitrofit(getContext(),url,null,recyclerView,2);
-        truyenRitrofit.TruyenGetRetrofit();
+        TruyenRitrofit truyenRitrofit = new TruyenRitrofit(getContext(),url);
+        truyenRitrofit.TruyenGetRetrofitRecyclerView(recyclerView);
 
         return view;
     }

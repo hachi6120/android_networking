@@ -7,24 +7,37 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.myapplication.Adapter.AdapterGridView;
 import com.example.myapplication.Adapter.AdapterImageSlide;
 import com.example.myapplication.ExpandableHeightGridView;
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.Model.Photo;
 import com.example.myapplication.Model.Truyen;
 import com.example.myapplication.R;
 import com.example.myapplication.Ritrofit.TruyenRitrofit;
 import com.example.myapplication.ThongTinTruyenActivity;
+import com.example.myapplication.TruyenYeuThich;
+import com.example.myapplication.databinding.ActivityMainBinding;
 import com.example.myapplication.databinding.FragmentHomeBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -34,6 +47,7 @@ import me.relex.circleindicator.CircleIndicator3;
 
 public class HomeFragment extends Fragment {
 
+    ImageButton btnTT;
 
     private ViewPager2 mViewPager2;
     private CircleIndicator3 mCircleIndicator3;
@@ -63,6 +77,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        setHasOptionsMenu(true);
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -84,27 +100,34 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //btn truyện yêu thích
+        root.findViewById(R.id.home_frm_yt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), TruyenYeuThich.class));
+            }
+        });
+
+        //btn fragment danh sách
+        root.findViewById(R.id.home_frm_list).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) requireActivity()).danhSachFragment();
+            }
+        });
+        //btn fragment cá nhân
+        root.findViewById(R.id.home_frm_tt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) requireActivity()).caNhanFragment();
+            }
+        });
+
         gridView = (ExpandableHeightGridView) root.findViewById(R.id.home_gridview);
 
-        TruyenRitrofit truyenRitrofit = new TruyenRitrofit(getContext(),url,gridView,null,1);
-        truyenRitrofit.TruyenGetRetrofit();
+        TruyenRitrofit truyenRitrofit = new TruyenRitrofit(getContext(),url);
+        truyenRitrofit.TruyenGetRetrofit(gridView);
 
-        /*gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // chuyển về string
-                Gson gson = new Gson();
-                String sTruyen = gson.toJson(truyenList.get(i));
-                //lưu dữ liệu
-                SharedPreferences pref = getActivity().getSharedPreferences("INFOR_TRUYEN", getActivity().MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("TRUYEN", sTruyen);
-                editor.commit();
-
-                Intent intent = new Intent(getActivity(), ThongTinTruyenActivity.class);
-                startActivity(intent);
-            }
-        });*/
         return root;
     }
 

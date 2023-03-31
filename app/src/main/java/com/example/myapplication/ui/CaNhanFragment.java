@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication.Login.LoginActivity;
 import com.example.myapplication.Login.PasswordActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.TruyenYeuThich;
 import com.example.myapplication.databinding.FragmentCanhanBinding;
 
 public class CaNhanFragment extends Fragment {
@@ -26,7 +27,7 @@ public class CaNhanFragment extends Fragment {
         root.findViewById(R.id.fcanhan_btn_truyenyt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getActivity(), TruyenYeuThich.class));
             }
         });
 
