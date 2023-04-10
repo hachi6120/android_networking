@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.Model.Truyen;
+import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 import com.example.myapplication.ThongTinTruyenActivity;
 import com.google.gson.Gson;
@@ -30,9 +32,12 @@ public class AdapterGridView extends BaseAdapter {
     private List<Truyen> objects;
     private LayoutInflater inflater;
 
+    User user;
 
-    public AdapterGridView(Context context, List<Truyen> objects) {
+
+    public AdapterGridView(Context context, List<Truyen> objects, User user) {
         this.context = context;
+        this.user = user;
         this.objects = objects;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -61,6 +66,7 @@ public class AdapterGridView extends BaseAdapter {
             holder.tvTenTruyen = view.findViewById(R.id.item_gv_tv_tenTruyen);
             holder.tvTacGia = view.findViewById(R.id.item_gv_tv_tacgia);
             holder.img = view.findViewById(R.id.item_gv_img);
+            holder.rlt = view.findViewById(R.id.item_gv_icon_yt);
 
             view.setTag(holder);
         } else {
@@ -71,12 +77,19 @@ public class AdapterGridView extends BaseAdapter {
         holder.tvTacGia.setText("Tác Giả: "+obj.getTenTG());
         Picasso.get().load(obj.getLinkAnhBia()).into(holder.img);
 
+        for (int j = 0; j < user.getTruyenyeuthich().length; j++) {
+            if (Integer.parseInt(user.getTruyenyeuthich()[j])==obj.getId()){
+                holder.rlt.setVisibility(View.VISIBLE);
+            }
+        }
+
         return view;
     }
 
     public class ViewHolder {
         public TextView tvTenTruyen,tvTacGia;
-        public ImageView img;
+        public ImageView img, rlt;
+
     }
 }
 

@@ -41,8 +41,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nguyễn Văn A"
                     android:textStyle="bold|italic"
+                    android:id="@+id/fcanhan_tv_tenu"
                     android:textSize="18dp"/>
             </LinearLayout>
             <LinearLayout
@@ -57,7 +57,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="traidepdoctruyen"
+                    android:id="@+id/fcanhan_tv_u"
                     android:textStyle="italic"
                     android:textSize="16dp"/>
             </LinearLayout>

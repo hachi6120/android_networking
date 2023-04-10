@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -39,7 +40,7 @@ public class TruyenRitrofit {
         this.url = url;
     }
 
-    public void TruyenGetRetrofit(ExpandableHeightGridView gridView) {
+    public void TruyenGetRetrofit(User user, ExpandableHeightGridView gridView) {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -56,7 +57,7 @@ public class TruyenRitrofit {
                 if (response.isSuccessful()) {
                     List<Truyen> list = response.body();
 
-                    AdapterGridView adapterGridView = new AdapterGridView(context, list);
+                    AdapterGridView adapterGridView = new AdapterGridView(context, list, user);
                     gridView.setAdapter(adapterGridView);
                     gridView.setExpanded(true);
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -133,7 +134,9 @@ public class TruyenRitrofit {
                 .build();
         //sử dụng interface
         ClassInterface userInterface = retrofit.create(ClassInterface.class);
-        Call<List<Truyen>> objCall = userInterface.lay_danh_sach();
+        String[] arr = user.getTruyenyeuthich();
+        List<String> list = new ArrayList<>(Arrays.asList(arr));
+        Call<List<Truyen>> objCall = userInterface.lay_truyen_id(list);
 
         //gọi GET
         objCall.enqueue(new Callback<List<Truyen>>() {
@@ -141,18 +144,7 @@ public class TruyenRitrofit {
             public void onResponse(Call<List<Truyen>> call, retrofit2.Response<List<Truyen>> response) {
                 if (response.isSuccessful()) {
                     List<Truyen> list = response.body();
-
-                    List<Truyen> newList = new ArrayList<>();
-
-                    for (int i = 0; i < user.getTruyenyeuthich().length; i++) {
-                        for (int j = 0; j < list.size(); j++) {
-                            if (Integer.parseInt(user.getTruyenyeuthich()[i])==list.get(j).getId()){
-                                newList.add(list.get(j));
-                            }
-                        }
-                    }
-
-                    AdapterGridView adapterGridView = new AdapterGridView(context, newList);
+                    AdapterGridView adapterGridView = new AdapterGridView(context, list, user);
                     gridView.setAdapter(adapterGridView);
                     gridView.setExpanded(true);
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

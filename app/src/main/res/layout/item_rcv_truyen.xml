@@ -45,7 +45,7 @@
             android:textSize="12dp"/>
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingStart="5dp"
             android:id="@+id/item_rcv_tv_noidung"
             android:textSize="10dp"
@@ -53,7 +53,6 @@
             android:text="Hạnh phúc từ trước đến nay luôn là cái mà con người ta luôn hướng tới.Nhưng khái niệm về hạnh phúc đối với mỗi người là hoàn toàn khác nhau.Có người cho rằng hạnh phúc là khi mình giàu có no đủ.Nhưng đối
 
 Nguồn: https://vanmau.edu.vn/chung-minh-tinh-thuong-la-hanh-phuc-cua-con-nguoi-van-lop-12/#ixzz7wVecCsWH"/>
-
     </LinearLayout>
 
 </LinearLayout>

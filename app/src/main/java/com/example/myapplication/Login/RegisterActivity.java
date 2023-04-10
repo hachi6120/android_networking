@@ -76,14 +76,14 @@ public class RegisterActivity extends AppCompatActivity {
                 }else {
                     tilHoten.setError("");
                 }
-                if (edtPassword.getText().toString().isEmpty()){
-                    tilPassword.setError("Mật khẩu không được để trống");
+                if (edtPassword.getText().toString().length()<=5){
+                    tilPassword.setError("Mật khẩu không được < 5 ký tự");
                     temp++;
                 }else {
                     tilPassword.setError("");
                 }
-                if (edtRePassword.getText().toString().isEmpty()){
-                    tilRePassword.setError("Nhập lại mật khẩu không được để trống");
+                if (edtRePassword.getText().toString().length()<=5){
+                    tilRePassword.setError("Nhập lại mật khẩu không được < 5 ký tự");
                     temp++;
                 }else {
                     tilRePassword.setError("");

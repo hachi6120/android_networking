@@ -271,4 +271,49 @@ public class UserRitrofit {
             }
         });
     }
+
+    public void userDoiMK(User user){
+        ProgressDialog dialog = ProgressDialog.show(context,"","Waiting for update...");
+        Gson gson = new GsonBuilder().setLenient().create();
+
+        //Tạo Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        //Khởi tạo Interface
+        ClassInterface userInterface = retrofit.create(ClassInterface.class);
+
+        //Tạo Call
+        Call<User> objCall = userInterface.updateUser(String.valueOf(user.getId()),user);
+
+        //Thực hiện gửi dữ liệu lên server
+        objCall.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, retrofit2.Response<User> response) {
+                dialog.dismiss();
+                if (response.isSuccessful()){
+                    User obj = response.body();
+                    Gson gson = new Gson();
+                    String sUser = gson.toJson(obj);
+                    //lưu dữ liệu
+                    SharedPreferences pref = context.getSharedPreferences("INFOR_USER", context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("USER", sUser);
+                    editor.commit();
+                    context.startActivity(new Intent(context,LoginActivity.class));
+                    Log.d("TAG", "onResponse: Kết Quả: "+obj.toString());
+                }else {
+                    Log.d("TAG", "onResponse: Lỗi "+response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                dialog.dismiss();
+                Log.e("TAG", "onFailure: "+t.getMessage());
+            }
+        });
+    }
 }

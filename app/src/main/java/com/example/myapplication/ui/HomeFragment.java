@@ -31,6 +31,7 @@ import com.example.myapplication.ExpandableHeightGridView;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.Model.Photo;
 import com.example.myapplication.Model.Truyen;
+import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 import com.example.myapplication.Ritrofit.TruyenRitrofit;
 import com.example.myapplication.ThongTinTruyenActivity;
@@ -125,8 +126,14 @@ public class HomeFragment extends Fragment {
 
         gridView = (ExpandableHeightGridView) root.findViewById(R.id.home_gridview);
 
+        SharedPreferences prefUser = getActivity().getSharedPreferences("INFOR_USER", getActivity().MODE_PRIVATE);
+        String sUser = prefUser.getString("USER","");
+
+        Gson gUser = new Gson();
+        User objUser = gUser.fromJson(sUser,User.class);
+
         TruyenRitrofit truyenRitrofit = new TruyenRitrofit(getContext(),url);
-        truyenRitrofit.TruyenGetRetrofit(gridView);
+        truyenRitrofit.TruyenGetRetrofit(objUser,gridView);
 
         return root;
     }

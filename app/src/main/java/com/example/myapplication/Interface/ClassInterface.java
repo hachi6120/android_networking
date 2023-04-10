@@ -22,6 +22,8 @@ public interface ClassInterface {
     @GET ("/truyen")
     Call<List<Truyen>> lay_danh_sach(); // trả về 1 danh sách
 
+    @GET ("/truyen")
+    Call<List<Truyen>> lay_truyen_id(@Query("id") List<String> id);
 
     @POST("/truyen")
     Call<Truyen> them_moi_truyen(@Body Truyen truyen);
